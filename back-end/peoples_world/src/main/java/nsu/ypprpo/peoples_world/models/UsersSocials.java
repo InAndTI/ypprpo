@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 @IdClass(UsersSocials_pk.class)
 public class UsersSocials {
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     @Id
     private User user;
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "social_id")
     @Id
     private SocialNetwork social;
 }

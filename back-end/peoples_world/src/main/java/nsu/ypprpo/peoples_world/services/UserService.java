@@ -1,5 +1,9 @@
 package nsu.ypprpo.peoples_world.services;
 
+import jakarta.transaction.Transactional;
+import nsu.ypprpo.peoples_world.exceptions.CustomException;
+import nsu.ypprpo.peoples_world.models.Hobby;
+import nsu.ypprpo.peoples_world.repository.HobbiesRepository;
 import nsu.ypprpo.peoples_world.repository.UserRepository;
 import nsu.ypprpo.peoples_world.models.User;
 import org.slf4j.Logger;
@@ -15,6 +19,8 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private HobbiesRepository hobbiesRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -68,6 +74,17 @@ public class UserService {
     // Delete user
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void addHobbyToUser(Long userId, Integer hobbyId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new CustomException("Такой пользователь не найден"));
+        Hobby hobby = hobbiesRepository.findById(hobbyId).orElseThrow(() ->
+                new CustomException("Такого хобби не найдено"));
+
+        user.getHobbies().add(hobby);
+        userRepository.save(user);
     }
 
 }

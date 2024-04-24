@@ -15,12 +15,12 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
-    private Integer id;
+    private Long user_id;
     private String username;
     private String password;
 
     public UserDetailsImpl(User user){
-        id = user.getId();
+        user_id = user.getUser_id();
         username = user.getUsername();
         password = user.getPassword();
     }

@@ -16,9 +16,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Relation_pk implements Serializable {
     @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user1Id;
     @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user2Id;
 }

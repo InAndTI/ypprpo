@@ -60,4 +60,9 @@ public class UserController {
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
+
+    @PostMapping("/{user_id}/add_hobby/{hobby_id}")
+    public void addHobbyToUser(@PathVariable("user_id") Long id, @PathVariable("hobby_id") Integer hobby_id){
+        userService.addHobbyToUser(id, hobby_id);
+    }
 }

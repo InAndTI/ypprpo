@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsersHobbiesRequest {
     private Long user;
-    private Long hobby;
+    private Integer hobby;
 }

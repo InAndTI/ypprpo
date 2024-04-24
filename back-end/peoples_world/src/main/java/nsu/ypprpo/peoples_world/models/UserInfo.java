@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class UserInfo {
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     @Id
     private User user_id;
     private Integer age;

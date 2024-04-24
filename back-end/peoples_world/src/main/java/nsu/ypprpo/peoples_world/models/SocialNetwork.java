@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class SocialNetwork {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer social_id;
     @Column(nullable=false, columnDefinition = "text")
     private String name;
 }
