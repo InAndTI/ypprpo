@@ -15,15 +15,19 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfo {
-    @ManyToOne
-    @JoinColumn(name = "user_id")
     @Id
-    private User user_id;
+    private Long user_id;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id")
+    private User user;
     private Integer age;
     private Integer height;
-    @Enumerated(EnumType.STRING)
-    private Enums.sexType sex;
-    private Enums.zodiac zodiac_sign;
+    @Column(columnDefinition = "text")
+    private String sex;
+    @Column(columnDefinition = "text")
+    private String zodiac_sign;
     @Column(columnDefinition = "text")
     private String habitation;
     @Column(columnDefinition = "text")

@@ -5,7 +5,7 @@ public class Enums {
         male,
         female
     }
-    public enum zodiac {
+    public enum ZodiacSign {
         Овен,
         Телец,
         Близнецы,
