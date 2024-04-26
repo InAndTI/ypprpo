@@ -34,4 +34,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "hobby_id"))
     private Set<Hobby> hobbies = new HashSet<>();
 
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "users_social_networks",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "social_id"))
+    private Set<SocialNetwork> social_networks = new HashSet<>();
 }

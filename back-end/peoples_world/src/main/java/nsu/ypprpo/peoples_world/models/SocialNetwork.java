@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "social_networks")
 @Data
@@ -18,4 +21,7 @@ public class SocialNetwork {
     private Integer social_id;
     @Column(nullable=false, columnDefinition = "text")
     private String name;
+
+    @ManyToMany(mappedBy = "social_networks")
+    private Set<User> users = new HashSet<>();
 }

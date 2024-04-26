@@ -3,7 +3,9 @@ package nsu.ypprpo.peoples_world.services;
 import jakarta.transaction.Transactional;
 import nsu.ypprpo.peoples_world.exceptions.CustomException;
 import nsu.ypprpo.peoples_world.models.Hobby;
+import nsu.ypprpo.peoples_world.models.SocialNetwork;
 import nsu.ypprpo.peoples_world.repository.HobbiesRepository;
+import nsu.ypprpo.peoples_world.repository.SocialNetworksRepository;
 import nsu.ypprpo.peoples_world.repository.UserRepository;
 import nsu.ypprpo.peoples_world.models.User;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -21,6 +24,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private HobbiesRepository hobbiesRepository;
+    @Autowired
+    private SocialNetworksRepository socialNetworksRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -76,7 +81,6 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    @Transactional
     public void addHobbyToUser(Long userId, Integer hobbyId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new CustomException("Такой пользователь не найден"));
@@ -85,6 +89,24 @@ public class UserService {
 
         user.getHobbies().add(hobby);
         userRepository.save(user);
+    }
+
+    public void addSocialNetworkToUser(Long userId, Integer socialId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new CustomException("Такой пользователь не найден"));
+        SocialNetwork social = socialNetworksRepository.findById(socialId).orElseThrow(() ->
+                new CustomException("Такой социальной сети не найдено"));
+
+        user.getSocial_networks().add(social);
+        userRepository.save(user);
+    }
+
+    public List<String> getHobbiesByUserId(Long userId){
+        return userRepository.getUserHobbiesById(userId);
+    }
+
+    public List<String> getSocialNetworksByUserId(Long userId){
+        return userRepository.getUserSocialsById(userId);
     }
 
 }

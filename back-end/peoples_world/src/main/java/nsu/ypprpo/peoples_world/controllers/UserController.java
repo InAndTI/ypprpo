@@ -1,6 +1,8 @@
 package nsu.ypprpo.peoples_world.controllers;
 
 import jakarta.validation.Valid;
+import nsu.ypprpo.peoples_world.models.Hobby;
+import nsu.ypprpo.peoples_world.models.SocialNetwork;
 import nsu.ypprpo.peoples_world.services.UserService;
 import nsu.ypprpo.peoples_world.models.User;
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import nsu.ypprpo.peoples_world.exceptions.CustomException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/users")
@@ -61,8 +64,23 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @PostMapping("/{user_id}/add_hobby/{hobby_id}")
+    @PostMapping("/{user_id}/hobby/{hobby_id}")
     public void addHobbyToUser(@PathVariable("user_id") Long id, @PathVariable("hobby_id") Integer hobby_id){
         userService.addHobbyToUser(id, hobby_id);
+    }
+
+    @PostMapping("/{user_id}/social_network/{social_id}")
+    public void addSocialNetworkToUser(@PathVariable("user_id") Long id, @PathVariable("social_id") Integer social_id){
+        userService.addSocialNetworkToUser(id, social_id);
+    }
+
+    @GetMapping("/{user_id}/hobbies")
+    public List<String> getHobbiesByUserId(@PathVariable("user_id") Long userId){
+        return userService.getHobbiesByUserId(userId);
+    }
+
+    @GetMapping("/{user_id}/social_networks")
+    public List<String> getSocialNetworksByUserId(@PathVariable("user_id") Long userId){
+        return userService.getSocialNetworksByUserId(userId);
     }
 }

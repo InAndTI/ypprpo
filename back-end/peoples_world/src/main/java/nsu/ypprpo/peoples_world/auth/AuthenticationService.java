@@ -32,17 +32,18 @@ public class AuthenticationService {
   private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
   public String register(User request) {
-    var user = UserDetailsImpl.builder()
+    var user = User.builder()
         .username(request.getUsername())
         .password(passwordEncoder.encode(request.getPassword()))
         .build();
+    UserDetailsImpl userDetails = new UserDetailsImpl(user);
     var userFromDB = this.repository.findByUsername(user.getUsername());
     if(userFromDB.isPresent()) {
       logger.info("найден пользователь с такими данными");
       return null;
     }
-    repository.save(request);
-    return jwtService.generateToken(user);
+    repository.save(user);
+    return jwtService.generateToken(userDetails);
   }
 
   public String authenticate(AuthenticationRequest request) {

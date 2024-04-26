@@ -21,6 +21,7 @@ public class Hobby {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer hobby_id;
+
     @Column(nullable=false, columnDefinition = "text")
     private String name;
 
