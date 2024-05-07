@@ -27,10 +27,13 @@ public class UsersInfoService {
     public void createUserInfo(Long id, UserInfo userInfo) {
         userInfo.setDate_of_reg(new Timestamp(System.currentTimeMillis()));
         userInfo.setUser(userRepository.findById(id).orElseThrow(()-> new CustomException("Такой пользователь не найден")));
+        userInfo.setUser_id(null);
+        userInfoRepository.save(userInfo);
     }
 
     public UserInfo updateUserInfo(Long id, UserInfo userInfo) {
-        userInfo.setUser_id(id);
+        userInfo.setUser(userRepository.findById(id).orElseThrow(()-> new CustomException("Такой пользователь не найден")));
+        userInfo.setUser_id(null);
         return userInfoRepository.save(userInfo);
     }
 
