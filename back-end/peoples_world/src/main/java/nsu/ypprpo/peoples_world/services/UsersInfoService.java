@@ -31,10 +31,25 @@ public class UsersInfoService {
         userInfoRepository.save(userInfo);
     }
 
-    public UserInfo updateUserInfo(Long id, UserInfo userInfo) {
-        userInfo.setUser(userRepository.findById(id).orElseThrow(()-> new CustomException("Такой пользователь не найден")));
-        userInfo.setUser_id(null);
-        return userInfoRepository.save(userInfo);
+    public UserInfo updateUserInfo(Long id, UserInfo newUserInfo) {
+        UserInfo existingUserInfo = userInfoRepository.findById(id)
+                .orElseThrow(() -> new CustomException("Такой пользователь не найден"));
+
+        // Здесь вы можете установить поля из newUserInfo в existingUserInfo
+        existingUserInfo.setAbout(newUserInfo.getAbout());
+        existingUserInfo.setAge(newUserInfo.getAge());
+        existingUserInfo.setHeight(newUserInfo.getHeight());
+        existingUserInfo.setSex(newUserInfo.getSex());
+        existingUserInfo.setZodiac_sign(newUserInfo.getZodiac_sign());
+        existingUserInfo.setHabitation(newUserInfo.getHabitation());
+        existingUserInfo.setLanguage(newUserInfo.getLanguage());
+        existingUserInfo.setAbout(newUserInfo.getAbout());
+        existingUserInfo.setName(newUserInfo.getName());
+        existingUserInfo.setDescription(newUserInfo.getDescription());
+        existingUserInfo.setPath_to_photo(newUserInfo.getPath_to_photo());
+
+        // После изменения полей, сохраняем обновленную информацию
+        return userInfoRepository.save(existingUserInfo);
     }
 
     public void deleteUserInfo(Long id) {

@@ -40,7 +40,7 @@ public class AuthenticationController {
   }
 
   @PostMapping("/authenticate")
-  public ResponseEntity<AuthenticationResponse> authenticate(
+  public ResponseEntity<Output> authenticate(
       @RequestBody AuthenticationRequest request
   ) {
     String jwtToken = service.authenticate(request);
@@ -48,10 +48,17 @@ public class AuthenticationController {
     if(!userService.isPasswordCorrect(request.getUsername(), request.getPassword())){
       throw new CustomException("Введен неверный адрес или пароль");
     }
-    return ResponseEntity.ok(AuthenticationResponse.builder()
-                              .accessToken(jwtToken)
-                              .build());
+
+    Output output = new Output();
+    output.token = AuthenticationResponse.builder()
+            .accessToken(jwtToken)
+            .build();
+    output.id=userService.getUserId(request.getUsername());
+
+    return ResponseEntity.ok(output);
   }
+
+
 
   @PostMapping("/refresh-token")
   public void refreshToken(

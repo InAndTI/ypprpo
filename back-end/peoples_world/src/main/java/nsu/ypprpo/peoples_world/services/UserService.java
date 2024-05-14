@@ -43,10 +43,19 @@ public class UserService {
 
     public boolean isPasswordCorrect(String username, String password) {
         var userFromDB = userRepository.findByUsername(username);
+
+
+
         if(userFromDB.isEmpty()){
             return false;
         }
         return passwordEncoder.matches(password, userFromDB.get().getPassword());
+    }
+
+    public Long getUserId(String username) {
+        var userFromDB = userRepository.findByUsername(username);
+
+        return userFromDB.get().getUser_id();
     }
 
     // Get all users
